@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome - Mario Style</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Press Start 2P', monospace;
+  }
+
+  .crt {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    border: 6px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  }
+
+  /* CRT scanlines */
+  .crt::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.1) 0px,
+      rgba(0,0,0,0.1) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* ===== SKY ===== */
+  .sky {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #6b8cff 0%, #99ccff 60%, #b3e0ff 100%);
+  }
+
+  /* Clouds */
+  .cloud {
+    position: absolute;
+    background: #fff;
+    border-radius: 50px;
+    opacity: 0.9;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .cloud-1 { width: 80px; height: 30px; top: 40px; animation: cloudMove 25s linear infinite; }
+  .cloud-1::before { width: 40px; height: 30px; top: -15px; left: 12px; }
+  .cloud-1::after { width: 50px; height: 35px; top: -10px; left: 30px; }
+
+  .cloud-2 { width: 60px; height: 22px; top: 80px; animation: cloudMove 35s linear infinite 5s; }
+  .cloud-2::before { width: 30px; height: 22px; top: -12px; left: 10px; }
+  .cloud-2::after { width: 35px; height: 25px; top: -8px; left: 22px; }
+
+  .cloud-3 { width: 90px; height: 28px; top: 30px; animation: cloudMove 30s linear infinite 12s; }
+  .cloud-3::before { width: 45px; height: 28px; top: -14px; left: 15px; }
+  .cloud-3::after { width: 55px; height: 32px; top: -10px; left: 35px; }
+
+  @keyframes cloudMove {
+    0% { left: -120px; }
+    100% { left: 850px; }
+  }
+
+  /* Hills */
+  .hill {
+    position: absolute;
+    bottom: 100px;
+    border-radius: 50% 50% 0 0;
+    background: #4a8c2a;
+  }
+  .hill-1 { width: 200px; height: 80px; left: 50px; }
+  .hill-2 { width: 150px; height: 60px; left: 250px; background: #3d7a22; }
+  .hill-3 { width: 180px; height: 70px; right: 80px; }
+  .hill-4 { width: 120px; height: 50px; right: 250px; background: #3d7a22; }
+
+  /* ===== GROUND ===== */
+  .ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: #c84c09;
+  }
+  .ground::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 10px;
+    background: #4a8c2a;
+  }
+  .ground-brick {
+    position: absolute;
+    top: 12px;
+    height: 22px;
+    background: #e09050;
+    border: 2px solid #a06030;
+    border-radius: 1px;
+  }
+
+  /* ===== WELCOME BANNER ===== */
+  .welcome-banner {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    text-align: center;
+    animation: bannerBounce 1s infinite ease-in-out;
+  }
+  @keyframes bannerBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+  .welcome-banner h1 {
+    font-size: 20px;
+    color: #fff;
+    text-shadow:
+      3px 3px 0 #c84c09,
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+    letter-spacing: 3px;
+  }
+  .welcome-banner .name {
+    font-size: 28px;
+    color: #ff0000;
+    text-shadow:
+      3px 3px 0 #8b0000,
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+    margin-top: 10px;
+    animation: nameGlow 1.5s infinite alternate;
+  }
+  @keyframes nameGlow {
+    0% { color: #ff0000; }
+    50% { color: #ffff00; }
+    100% { color: #00ff00; }
+  }
+  .welcome-banner .sub {
+    font-size: 10px;
+    color: #fff;
+    margin-top: 12px;
+    text-shadow: 2px 2px 0 #000;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  /* ===== QUESTION BLOCKS ===== */
+  .qblock {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #e09050;
+    border: 3px solid #a06030;
+    border-radius: 4px;
+    z-index: 10;
+    animation: blockFloat 2s infinite ease-in-out;
+    cursor: pointer;
+  }
+  .qblock::before {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .qblock-hit {
+    animation: blockHit 0.3s ease-out;
+  }
+  @keyframes blockFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  @keyframes blockHit {
+    0% { transform: translateY(0); }
+    30% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Coin from block */
+  .coin-pop {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #ffd700;
+    border: 2px solid #daa520;
+    border-radius: 50%;
+    z-index: 20;
+    animation: coinPop 0.8s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: #8B6914;
+    font-weight: bold;
+  }
+  @keyframes coinPop {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    50% { opacity: 1; transform: translateY(-50px) scale(1.3); }
+    100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+  }
+
+  /* ===== BRICK BLOCKS ===== */
+  .brick {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #c84c09;
+    border: 3px solid #a04008;
+    border-radius: 2px;
+    z-index: 10;
+  }
+  .brick::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #a04008;
+  }
+  .brick::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #a04008;
+  }
+
+  /* ===== PIPE ===== */
+  .pipe {
+    position: absolute;
+    z-index: 10;
+  }
+  .pipe-top {
+    width: 60px;
+    height: 20px;
+    background: #00a800;
+    border: 3px solid #005800;
+    border-radius: 6px 6px 0 0;
+  }
+  .pipe-body {
+    width: 50px;
+    height: 50px;
+    background: #00a800;
+    border-left: 3px solid #005800;
+    border-right: 3px solid #005800;
+    margin-left: 5px;
+  }
+  .pipe-1 { bottom: 100px; right: 120px; }
+  .pipe-2 { bottom: 100px; right: 250px; }
+  .pipe-2 .pipe-top { width: 50px; height: 16px; }
+  .pipe-2 .pipe-body { width: 40px; height: 40px; margin-left: 5px; }
+
+  /* ===== MARIO ===== */
+  .mario {
+    position: absolute;
+    bottom: 105px;
+    left: 100px;
+    z-index: 30;
+    animation: marioRun 0.5s infinite steps(2);
+  }
+  .mario-jump {
+    animation: marioJump 0.8s forwards;
+  }
+  @keyframes marioJump {
+    0% { bottom: 105px; }
+    40% { bottom: 260px; }
+    50% { bottom: 270px; }
+    100% { bottom: 105px; }
+  }
+  @keyframes marioRun {
+    0% { transform: scaleX(1); }
+    50% { transform: scaleX(1); }
+  }
+
+  /* Mario pixel art */
+  .mario-sprite {
+    position: relative;
+    width: 32px;
+    height: 40px;
+    transform: scale(2.5);
+    transform-origin: bottom left;
+  }
+
+  /* Hat */
+  .m-hat {
+    position: absolute;
+    top: 0; left: 6px;
+    width: 20px; height: 6px;
+    background: #ff0000;
+    border-radius: 2px;
+  }
+  .m-hat-top {
+    position: absolute;
+    top: -4px; left: 4px;
+    width: 18px; height: 6px;
+    background: #ff0000;
+    border-radius: 4px 4px 0 0;
+  }
+  .m-hat-brim {
+    position: absolute;
+    top: 4px; left: 2px;
+    width: 26px; height: 4px;
+    background: #ff0000;
+    border-radius: 2px;
+  }
+
+  /* Face */
+  .m-face {
+    position: absolute;
+    top: 8px; left: 6px;
+    width: 18px; height: 12px;
+    background: #ffcc99;
+    border-radius: 2px;
+  }
+  .m-eye {
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 4px; height: 4px;
+    background: #000;
+    border-radius: 50%;
+  }
+  .m-mustache {
+    position: absolute;
+    bottom: 0; left: 2px;
+    width: 16px; height: 4px;
+    background: #5c3317;
+    border-radius: 0 0 6px 6px;
+  }
+
+  /* Body */
+  .m-body {
+    position: absolute;
+    top: 18px; left: 5px;
+    width: 22px; height: 14px;
+    background: #ff0000;
+    border-radius: 3px;
+  }
+  .m-overalls {
+    position: absolute;
+    top: 22px; left: 7px;
+    width: 18px; height: 10px;
+    background: #0000cc;
+    border-radius: 0 0 3px 3px;
+  }
+  .m-button {
+    position: absolute;
+    top: 2px; left: 50%;
+    transform: translateX(-50%);
+    width: 3px; height: 3px;
+    background: #ffd700;
+    border-radius: 50%;
+  }
+
+  /* Arms */
+  .m-arm-l {
+    position: absolute;
+    top: 20px; left: 0;
+    width: 6px; height: 10px;
+    background: #ffcc99;
+    border-radius: 3px;
+    animation: armSwing 0.3s infinite alternate;
+  }
+  .m-arm-r {
+    position: absolute;
+    top: 20px; right: 0;
+    width: 6px; height: 10px;
+    background: #ffcc99;
+    border-radius: 3px;
+    animation: armSwing 0.3s infinite alternate-reverse;
+  }
+  @keyframes armSwing {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
+  }
+
+  /* Legs */
+  .m-leg-l {
+    position: absolute;
+    bottom: 2px; left: 5px;
+    width: 8px; height: 6px;
+    background: #0000cc;
+    border-radius: 2px;
+    animation: legRun 0.3s infinite alternate;
+  }
+  .m-leg-r {
+    position: absolute;
+    bottom: 2px; left: 18px;
+    width: 8px; height: 6px;
+    background: #0000cc;
+    border-radius: 2px;
+    animation: legRun 0.3s infinite alternate-reverse;
+  }
+  @keyframes legRun {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
+  }
+
+  /* Shoes */
+  .m-shoe-l {
+    position: absolute;
+    bottom: 0; left: 3px;
+    width: 10px; height: 4px;
+    background: #5c3317;
+    border-radius: 3px;
+  }
+  .m-shoe-r {
+    position: absolute;
+    bottom: 0; right: 3px;
+    width: 10px; height: 4px;
+    background: #5c3317;
+    border-radius: 3px;
+  }
+
+  /* ===== GOOMBA ===== */
+  .goomba {
+    position: absolute;
+    bottom: 105px;
+    z-index: 25;
+    animation: goombaWalk 8s linear infinite;
+  }
+  @keyframes goombaWalk {
+    0% { left: 850px; }
+    100% { left: -60px; }
+  }
+  .goomba-sprite {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    transform: scale(2);
+    transform-origin: bottom center;
+  }
+  .goomba-body {
+    position: absolute;
+    top: 4px; left: 2px;
+    width: 24px; height: 18px;
+    background: #8B4513;
+    border-radius: 50% 50% 30% 30%;
+  }
+  .goomba-eye-l {
+    position: absolute;
+    top: 8px; left: 4px;
+    width: 7px; height: 8px;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .goomba-eye-r {
+    position: absolute;
+    top: 8px; right: 4px;
+    width: 7px; height: 8px;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .goomba-pupil-l {
+    position: absolute;
+    top: 3px; left: 1px;
+    width: 4px; height: 4px;
+    background: #000;
+    border-radius: 50%;
+  }
+  .goomba-pupil-r {
+    position: absolute;
+    top: 3px; left: 1px;
+    width: 4px; height: 4px;
+    background: #000;
+    border-radius: 50%;
+  }
+  .goomba-mouth {
+    position: absolute;
+    bottom: 2px; left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 4px;
+    background: #000;
+    border-radius: 0 0 4px 4px;
+  }
+  .goomba-foot-l {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 10px; height: 6px;
+    background: #000;
+    border-radius: 4px;
+    animation: goombaStep 0.4s infinite alternate;
+  }
+  .goomba-foot-r {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 10px; height: 6px;
+    background: #000;
+    border-radius: 4px;
+    animation: goombaStep 0.4s infinite alternate-reverse;
+  }
+  @keyframes goombaStep {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-2px); }
+  }
+
+  /* ===== STAR ===== */
+  .star {
+    position: absolute;
+    z-index: 15;
+    animation: starFloat 3s infinite ease-in-out;
+  }
+  .star-shape {
+    width: 20px;
+    height: 20px;
+    background: #ffd700;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: starSpin 2s linear infinite;
+  }
+  @keyframes starFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes starSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* ===== MUSHROOM ===== */
+  .mushroom {
+    position: absolute;
+    bottom: 105px;
+    z-index: 15;
+    animation: mushroomBounce 4s infinite ease-in-out;
+  }
+  .mush-head {
+    width: 24px;
+    height: 16px;
+    background: #ff0000;
+    border-radius: 50% 50% 20% 20%;
+    position: relative;
+  }
+  .mush-spot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .mush-spot:nth-child(1) { top: 3px; left: 3px; }
+  .mush-spot:nth-child(2) { top: 2px; right: 5px; width: 5px; height: 5px; }
+  .mush-stem {
+    width: 12px;
+    height: 10px;
+    background: #ffe4b5;
+    margin: 0 auto;
+    border-radius: 0 0 4px 4px;
+    position: relative;
+  }
+  .mush-eye {
+    position: absolute;
+    top: 2px;
+    width: 3px;
+    height: 4px;
+    background: #000;
+    border-radius: 50%;
+  }
+  .mush-eye.l { left: 2px; }
+  .mush-eye.r { right: 2px; }
+  @keyframes mushroomBounce {
+    0%, 100% { transform: translateY(0) scaleX(1); }
+    25% { transform: translateY(-5px) scaleX(1); }
+    50% { transform: translateY(0) scaleX(-1); }
+    75% { transform: translateY(-5px) scaleX(-1); }
+  }
+
+  /* ===== COINS ===== */
+  .coin {
+    position: absolute;
+    width: 16px;
+    height: 20px;
+    background: #ffd700;
+    border: 2px solid #daa520;
+    border-radius: 50%;
+    z-index: 15;
+    animation: coinSpin 1s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: #8B6914;
+    font-weight: bold;
+  }
+  @keyframes coinSpin {
+    0% { transform: scaleX(1); }
+    25% { transform: scaleX(0.3); }
+    50% { transform: scaleX(1); }
+    75% { transform: scaleX(0.3); }
+    100% { transform: scaleX(1); }
+  }
+
+  /* ===== SCORE HUD ===== */
+  .hud {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 60;
+    font-size: 10px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+  }
+  .hud-item { text-align: center; }
+  .hud-label { font-size: 7px; color: #ffd700; margin-bottom: 4px; }
+
+  /* ===== PRESS START ===== */
+  .press-start {
+    position: absolute;
+    bottom: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    z-index: 50;
+    animation: blink 1s infinite;
+  }
+
+  /* ===== FLAG ===== */
+  .flag {
+    position: absolute;
+    bottom: 100px;
+    right: 60px;
+    z-index: 15;
+  }
+  .flag-pole {
+    width: 4px;
+    height: 150px;
+    background: #888;
+    margin-left: 8px;
+  }
+  .flag-cloth {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    width: 30px;
+    height: 25px;
+    background: #00ff00;
+    clip-path: polygon(0 0, 100% 15%, 80% 50%, 100% 85%, 0 100%);
+    animation: flagWave 1s infinite ease-in-out;
+  }
+  @keyframes flagWave {
+    0%, 100% { transform: skewY(0deg); }
+    50% { transform: skewY(-3deg); }
+  }
+  .flag-ball {
+    position: absolute;
+    top: -6px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background: #ffd700;
+    border-radius: 50%;
+  }
+
+  /* ===== FLOWER ===== */
+  .flower {
+    position: absolute;
+    bottom: 100px;
+    z-index: 15;
+    animation: flowerSway 2s infinite ease-in-out;
+  }
+  .flower-stem {
+    width: 4px;
+    height: 20px;
+    background: #00a800;
+    margin: 0 auto;
+  }
+  .flower-head {
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+  .flower-petal {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ff6600;
+    border-radius: 50%;
+  }
+  .flower-petal:nth-child(1) { top: 0; left: 6px; }
+  .flower-petal:nth-child(2) { top: 4px; left: 0; }
+  .flower-petal:nth-child(3) { top: 4px; right: 0; }
+  .flower-petal:nth-child(4) { bottom: 0; left: 6px; }
+  .flower-center {
+    position: absolute;
+    top: 5px; left: 5px;
+    width: 10px; height: 10px;
+    background: #ffff00;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  @keyframes flowerSway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="crt">
+
+  <!-- Sky -->
+  <div class="sky">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+  </div>
+
+  <!-- Hills -->
+  <div class="hill hill-1"></div>
+  <div class="hill hill-2"></div>
+  <div class="hill hill-3"></div>
+  <div class="hill hill-4"></div>
+
+  <!-- HUD -->
+  <div class="hud">
+    <div class="hud-item">
+      <div class="hud-label">MARIO</div>
+      <div id="score">000000</div>
+    </div>
+    <div class="hud-item">
+      <div class="hud-label">COINS</div>
+      <div id="coins">x00</div>
+    </div>
+    <div class="hud-item">
+      <div class="hud-label">WORLD</div>
+      <div>1-1</div>
+    </div>
+    <div class="hud-item">
+      <div class="hud-label">TIME</div>
+      <div id="time">400</div>
+    </div>
+    <div class="hud-item">
+      <div class="hud-label">LIVES</div>
+      <div>x3</div>
+    </div>
+  </div>
+
+  <!-- Welcome Banner -->
+  <div class="welcome-banner">
+    <h1>WELCOME TO</h1>
+    <div class="name">SURJIT'S WORLD</div>
+    <div class="sub">&gt; PRESS START TO CODE_</div>
+  </div>
+
+  <!-- Question Blocks -->
+  <div class="qblock" style="bottom:220px;left:250px;" onclick="hitBlock(this)"></div>
+  <div class="qblock" style="bottom:220px;left:370px;" onclick="hitBlock(this)"></div>
+  <div class="qblock" style="bottom:220px;left:490px;" onclick="hitBlock(this)"></div>
+
+  <!-- Bricks -->
+  <div class="brick" style="bottom:220px;left:290px;"></div>
+  <div class="brick" style="bottom:220px;left:330px;"></div>
+  <div class="brick" style="bottom:220px;left:410px;"></div>
+  <div class="brick" style="bottom:220px;left:450px;"></div>
+  <div class="brick" style="bottom:260px;left:370px;"></div>
+
+  <!-- Coins -->
+  <div class="coin" style="bottom:280px;left:310px;">$</div>
+  <div class="coin" style="bottom:280px;left:430px;">$</div>
+  <div class="coin" style="bottom:280px;left:270px;">$</div>
+
+  <!-- Star -->
+  <div class="star" style="bottom:300px;left:550px;">
+    <div class="star-shape"></div>
+  </div>
+
+  <!-- Pipe -->
+  <div class="pipe pipe-1">
+    <div class="pipe-top"></div>
+    <div class="pipe-body"></div>
+  </div>
+  <div class="pipe pipe-2">
+    <div class="pipe-top"></div>
+    <div class="pipe-body"></div>
+  </div>
+
+  <!-- Mushroom -->
+  <div class="mushroom" style="left:550px;">
+    <div class="mush-head">
+      <div class="mush-spot"></div>
+      <div class="mush-spot"></div>
+    </div>
+    <div class="mush-stem">
+      <div class="mush-eye l"></div>
+      <div class="mush-eye r"></div>
+    </div>
+  </div>
+
+  <!-- Flower -->
+  <div class="flower" style="left:180px;">
+    <div class="flower-head">
+      <div class="flower-petal"></div>
+      <div class="flower-petal"></div>
+      <div class="flower-petal"></div>
+      <div class="flower-petal"></div>
+      <div class="flower-center"></div>
+    </div>
+    <div class="flower-stem"></div>
+  </div>
+
+  <!-- Flag -->
+  <div class="flag">
+    <div class="flag-ball"></div>
+    <div class="flag-cloth"></div>
+    <div class="flag-pole"></div>
+  </div>
+
+  <!-- Goomba -->
+  <div class="goomba">
+    <div class="goomba-sprite">
+      <div class="goomba-body">
+        <div class="goomba-eye-l"><div class="goomba-pupil-l"></div></div>
+        <div class="goomba-eye-r"><div class="goomba-pupil-r"></div></div>
+        <div class="goomba-mouth"></div>
+      </div>
+      <div class="goomba-foot-l"></div>
+      <div class="goomba-foot-r"></div>
+    </div>
+  </div>
+
+  <!-- Mario -->
+  <div class="mario" id="mario">
+    <div class="mario-sprite">
+      <div class="m-hat-top"></div>
+      <div class="m-hat"></div>
+      <div class="m-hat-brim"></div>
+      <div class="m-face">
+        <div class="m-eye"></div>
+        <div class="m-mustache"></div>
+      </div>
+      <div class="m-body"></div>
+      <div class="m-overalls"><div class="m-button"></div></div>
+      <div class="m-arm-l"></div>
+      <div class="m-arm-r"></div>
+      <div class="m-leg-l"></div>
+      <div class="m-leg-r"></div>
+      <div class="m-shoe-l"></div>
+      <div class="m-shoe-r"></div>
+    </div>
+  </div>
+
+  <!-- Ground -->
+  <div class="ground"></div>
+
+  <!-- Press Start -->
+  <div class="press-start">CLICK BLOCKS OR PRESS SPACE TO JUMP</div>
+
+</div>
+
+<script>
+  let score = 0;
+  let coinCount = 0;
+  let timeLeft = 400;
+
+  // Timer
+  setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      document.getElementById('time').textContent = timeLeft;
+    }
+  }, 1000);
+
+  // Score counter
+  setInterval(() => {
+    score += 1;
+    document.getElementById('score').textContent = String(score).padStart(6, '0');
+  }, 100);
+
+  // Hit question block
+  function hitBlock(el) {
+    el.classList.add('qblock-hit');
+    setTimeout(() => el.classList.remove('qblock-hit'), 300);
+
+    // Spawn coin
+    const coin = document.createElement('div');
+    coin.className = 'coin-pop';
+    coin.textContent = '$';
+    coin.style.left = el.style.left;
+    coin.style.bottom = (parseInt(el.style.bottom) + 40) + 'px';
+    document.querySelector('.crt').appendChild(coin);
+    setTimeout(() => coin.remove(), 800);
+
+    coinCount++;
+    document.getElementById('coins').textContent = 'x' + String(coinCount).padStart(2, '0');
+    score += 200;
+    document.getElementById('score').textContent = String(score).padStart(6, '0');
+  }
+
+  // Jump with space
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      jump();
+    }
+  });
+
+  function jump() {
+    const mario = document.getElementById('mario');
+    if (mario.classList.contains('mario-jump')) return;
+    mario.classList.add('mario-jump');
+    setTimeout(() => mario.classList.remove('mario-jump'), 800);
+  }
+
+  // Click anywhere to jump
+  document.querySelector('.crt').addEventListener('click', jump);
+</script>
+
+</body>
+</html>
