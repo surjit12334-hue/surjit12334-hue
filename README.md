@@ -22,7 +22,7 @@
 - 👯 I’m looking to collaborate on **open source projects**
 - 🤔 I’m looking for help with **anything interesting**
 - 💬 Ask me about **anything tech related**
-- 📫 How to reach me: **[Instagram](https://www.instagram.com/surjit12334/)** | **[Twitter](https://twitter.com/)** | **[LinkedIn](https://linkedin.com/)**
+- 📫 How to reach me: **[Instagram](https://www.instagram.com/surjit12334/)** | **[LinkedIn](https://www.linkedin.com/in/surjeet-singh-4b0b5a31a)** | **[Email](mailto:surjit123408@gmail.com)**
 - 😄 Pronouns: **He/Him**
 - ⚡ Fun fact: **I love coding and exploring new things!**
 
@@ -80,7 +80,7 @@
   <a href="https://twitter.com/">
     <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" />
   </a>
-  <a href="https://linkedin.com/">
+  <a href="https://www.linkedin.com/in/surjeet-singh-4b0b5a31a">
     <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
   <a href="mailto:surjit123408@gmail.com">
