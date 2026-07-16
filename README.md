@@ -1,4 +1,734 @@
-<h1 align="center">Hey there 👋 I'm Surjit</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER TERMINAL - SURJIT</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #050505;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .terminal {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    background: #0a0f0a;
+    border: 2px solid #00ff88;
+    border-radius: 8px;
+    box-shadow: 
+      0 0 30px rgba(0,255,136,0.3),
+      inset 0 0 60px rgba(0,20,0,0.5),
+      0 0 100px rgba(0,255,136,0.1);
+    overflow: hidden;
+  }
+
+  /* CRT scanlines */
+  .terminal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.15) 0px,
+      rgba(0,0,0,0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* Vignette */
+  .terminal::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 101;
+  }
+
+  /* ===== BACKGROUND GRID ===== */
+  .grid-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(40px, 40px); }
+  }
+
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00ff88;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat 8s infinite linear;
+  }
+  @keyframes particleFloat {
+    0% { opacity: 0; transform: translateY(0) scale(0); }
+    10% { opacity: 1; transform: translateY(-20px) scale(1); }
+    90% { opacity: 1; transform: translateY(-400px) scale(1); }
+    100% { opacity: 0; transform: translateY(-450px) scale(0); }
+  }
+
+  /* ===== HEADER BAR ===== */
+  .header-bar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(90deg, #001a00 0%, #003300 50%, #001a00 100%);
+    border-bottom: 2px solid #00ff88;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 50;
+  }
+  .window-controls {
+    display: flex;
+    gap: 8px;
+  }
+  .control-btn {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+  }
+  .control-btn.close { background: #ff4444; box-shadow: 0 0 10px #ff4444; }
+  .control-btn.minimize { background: #ffcc00; box-shadow: 0 0 10px #ffcc00; }
+  .control-btn.maximize { background: #44ff44; box-shadow: 0 0 10px #44ff44; }
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    color: #00ff88;
+    text-shadow: 0 0 10px #00ff88;
+    letter-spacing: 2px;
+  }
+  .status-indicators {
+    display: flex;
+    gap: 15px;
+    font-size: 10px;
+    color: #00cc66;
+  }
+  .status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 5px #00ff88; }
+    50% { opacity: 0.5; box-shadow: 0 0 15px #00ff88; }
+  }
+
+  /* ===== MAIN CONTENT AREA ===== */
+  .content {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+  }
+
+  /* ===== PANEL STYLE ===== */
+  .panel {
+    background: rgba(0,30,0,0.6);
+    border: 1px solid #003300;
+    border-radius: 4px;
+    padding: 15px;
+    overflow: hidden;
+    position: relative;
+  }
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff88, transparent);
+  }
+  .panel-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    color: #00ff88;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-title::before {
+    content: '>';
+    color: #00cc66;
+  }
+
+  /* ===== CODE EDITOR PANEL ===== */
+  .code-editor {
+    grid-column: span 2;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .code-line {
+    opacity: 0;
+    animation: typeLine 0.5s forwards;
+    white-space: pre;
+  }
+  @keyframes typeLine {
+    0% { opacity: 0; transform: translateX(-20px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  .code-line:nth-child(1) { animation-delay: 0.1s; color: #00ff88; }
+  .code-line:nth-child(2) { animation-delay: 0.3s; color: #88ffaa; }
+  .code-line:nth-child(3) { animation-delay: 0.5s; color: #00ffcc; }
+  .code-line:nth-child(4) { animation-delay: 0.7s; color: #ffff00; }
+  .code-line:nth-child(5) { animation-delay: 0.9s; color: #ff8800; }
+  .code-line:nth-child(6) { animation-delay: 1.1s; color: #ff4444; }
+  .code-line:nth-child(7) { animation-delay: 1.3s; color: #ff44ff; }
+  .code-line:nth-child(8) { animation-delay: 1.5s; color: #8888ff; }
+  .keyword { color: #00ff88; }
+  .function { color: #00ccff; }
+  .string { color: #ffff00; }
+  .comment { color: #666; font-style: italic; }
+  .variable { color: #ff8800; }
+  .cursor-blink {
+    display: inline-block;
+    width: 8px;
+    height: 18px;
+    background: #00ff88;
+    animation: cursorBlink 0.8s infinite;
+    vertical-align: middle;
+  }
+  @keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* ===== SYSTEM MONITOR ===== */
+  .sys-monitor {
+    font-size: 11px;
+  }
+  .metric {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #002200;
+  }
+  .metric-label { color: #00cc66; }
+  .metric-value { color: #00ff88; font-weight: 700; }
+  .bar-container {
+    width: 100%;
+    height: 6px;
+    background: #001100;
+    border-radius: 3px;
+    margin-top: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff88, #00cc66);
+    border-radius: 3px;
+    animation: barFill 2s forwards;
+  }
+  @keyframes barFill {
+    0% { width: 0%; }
+  }
+
+  /* ===== NETWORK ACTIVITY ===== */
+  .net-activity {
+    font-size: 10px;
+    max-height: 200px;
+    overflow: hidden;
+  }
+  .log-entry {
+    display: flex;
+    gap: 8px;
+    margin: 4px 0;
+    opacity: 0;
+    animation: logEntry 0.3s forwards;
+  }
+  @keyframes logEntry {
+    0% { opacity: 0; transform: translateX(-10px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  .log-time { color: #666; }
+  .log-type { color: #00ff88; }
+  .log-type.warn { color: #ffcc00; }
+  .log-type.error { color: #ff4444; }
+  .log-type.success { color: #44ff88; }
+  .log-msg { color: #aaa; }
+
+  /* ===== PROFILE PANEL ===== */
+  .profile-panel {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+  }
+  .avatar-glow {
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: avatarPulse 3s infinite alternate;
+  }
+  @keyframes avatarPulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.1); opacity: 1; }
+  }
+  .avatar-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid #00ff88;
+    border-radius: 50%;
+    animation: ringRotate 10s linear infinite;
+  }
+  @keyframes ringRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .avatar-ring:nth-child(2) { animation-direction: reverse; animation-duration: 15s; }
+  .avatar-ring:nth-child(3) { animation-duration: 20px; border-color: #00ccff; }
+  .avatar-img {
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #003300, #001a00);
+    border: 2px solid #00ff88;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #00ff88;
+    overflow: hidden;
+  }
+  .avatar-img::before {
+    content: '◆';
+    animation: spin 4s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .profile-info {
+    flex: 1;
+  }
+  .profile-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    color: #00ff88;
+    text-shadow: 0 0 20px #00ff88;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+  }
+  .profile-tagline {
+    font-size: 14px;
+    color: #00ccaa;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+  .social-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .social-btn {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #003300;
+    border-radius: 4px;
+    color: #00ff88;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .social-btn:hover {
+    background: rgba(0,255,136,0.1);
+    border-color: #00ff88;
+    box-shadow: 0 0 15px rgba(0,255,136,0.3);
+    transform: translateY(-2px);
+  }
+  .social-btn.github { border-color: #333; }
+  .social-btn.github:hover { border-color: #fff; box-shadow: 0 0 15px #fff; }
+  .social-btn.linkedin { border-color: #0077b5; }
+  .social-btn.linkedin:hover { border-color: #0077b5; box-shadow: 0 0 15px #0077b5; }
+  .social-btn.email { border-color: #d14836; }
+  .social-btn.email:hover { border-color: #d14836; box-shadow: 0 0 15px #d14836; }
+  .social-btn.instagram { border-color: #e4405f; }
+  .social-btn.instagram:hover { border-color: #e4405f; box-shadow: 0 0 15px #e4405f; }
+
+  .stats-row {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #002200;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: #00ff88;
+  }
+  .stat-label {
+    font-size: 9px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: #006633;
+    z-index: 50;
+  }
+  .footer-right { text-align: right; }
+
+  /* ===== GLITCH EFFECT ===== */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .glitch::before {
+    animation: glitch-1 3s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    color: #ff00ff;
+    z-index: -1;
+  }
+  .glitch::after {
+    animation: glitch-2 2.5s infinite linear alternate-reverse;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    color: #00ffff;
+    z-index: -2;
+  }
+  @keyframes glitch-1 {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-3px); }
+    40% { transform: translateX(3px); }
+    60% { transform: translateX(-1px); }
+    80% { transform: translateX(1px); }
+  }
+  @keyframes glitch-2 {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(2px); }
+    40% { transform: translateX(-2px); }
+    60% { transform: translateX(1px); }
+    80% { transform: translateX(-1px); }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="terminal">
+  <!-- Background Grid -->
+  <div class="grid-bg"></div>
+
+  <!-- Floating Particles -->
+  <div class="particle" style="left:10%;animation-delay:0s"></div>
+  <div class="particle" style="left:25%;animation-delay:1s"></div>
+  <div class="particle" style="left:40%;animation-delay:2s"></div>
+  <div class="particle" style="left:55%;animation-delay:3s"></div>
+  <div class="particle" style="left:70%;animation-delay:4s"></div>
+  <div class="particle" style="left:85%;animation-delay:5s"></div>
+  <div class="particle" style="left:15%;animation-delay:6s"></div>
+  <div class="particle" style="left:30%;animation-delay:7s"></div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="window-controls">
+      <button class="control-btn close"></button>
+      <button class="control-btn minimize"></button>
+      <button class="control-btn maximize"></button>
+    </div>
+    <div class="terminal-title">CYBER_TERMINAL v3.7.1 // SURJIT_SINGH</div>
+    <div class="status-indicators">
+      <span><span class="status-dot"></span>SECURE</span>
+      <span><span class="status-dot"></span>ENCRYPTED</span>
+      <span><span class="status-dot"></span>LIVE</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+
+    <!-- Code Editor Panel -->
+    <div class="panel code-editor">
+      <div class="panel-title">CODE_EDITOR // MAIN.SURJIT</div>
+      <div class="code-line"><span class="keyword">const</span> <span class="variable">developer</span> = {</div>
+      <div class="code-line">  <span class="variable">name</span>: <span class="string">"Surjit Singh"</span>,</div>
+      <div class="code-line">  <span class="variable">role</span>: <span class="string">"Full-Stack Developer"</span>,</div>
+      <div class="code-line">  <span class="variable">stack</span>: [<span class="string">"React"</span>, <span class="string">"Node.js"</span>, <span class="string">"MongoDB"</span>, <span class="string">"TypeScript"</span>],</div>
+      <div class="code-line">  <span class="variable">focus</span>: <span class="string">"Clean Code & Scalable Architecture"</span>,</div>
+      <div class="code-line">  <span class="variable">status</span>: <span class="string">"BUILDING..."</span></div>
+      <div class="code-line">};</div>
+      <div class="code-line"><span class="comment">// Initializing neural link...</span></div>
+      <div class="code-line"><span class="keyword">function</span> <span class="function">deployFuture</span>() {</div>
+      <div class="code-line">  <span class="keyword">while</span> (<span class="variable">developer</span>.<span class="variable">alive</span>) {</div>
+      <div class="code-line">    <span class="function">code</span>(); <span class="function">learn</span>(); <span class="function">build</span>();</div>
+      <div class="code-line">    <span class="keyword">await</span> <span class="function">sleep</span>(<span class="string">"8h"</span>);</div>
+      <div class="code-line">  }</div>
+      <div class="code-line">}</div>
+      <div class="code-line"><span class="function">deployFuture</span>(); <span class="cursor-blink"></span></div>
+    </div>
+
+    <!-- System Monitor Panel -->
+    <div class="panel sys-monitor">
+      <div class="panel-title">SYSTEM_MONITOR</div>
+      <div class="metric">
+        <span class="metric-label">CPU_USAGE</span>
+        <span class="metric-value" id="cpu">0%</span>
+      </div>
+      <div class="bar-container"><div class="bar-fill" style="width:45%"></div></div>
+      <div class="metric">
+        <span class="metric-label">MEMORY</span>
+        <span class="metric-value" id="mem">0%</span>
+      </div>
+      <div class="bar-container"><div class="bar-fill" style="width:62%"></div></div>
+      <div class="metric">
+        <span class="metric-label">NETWORK</span>
+        <span class="metric-value" id="net">0%</span>
+      </div>
+      <div class="bar-container"><div class="bar-fill" style="width:78%"></div></div>
+      <div class="metric">
+        <span class="metric-label">DISK_IO</span>
+        <span class="metric-value" id="disk">0%</span>
+      </div>
+      <div class="bar-container"><div class="bar-fill" style="width:34%"></div></div>
+      <div class="metric">
+        <span class="metric-label">TEMPERATURE</span>
+        <span class="metric-value">34°C</span>
+      </div>
+      <div class="bar-container"><div class="bar-fill" style="width:28%"></div></div>
+      <div class="metric">
+        <span class="metric-label">UPTIME</span>
+        <span class="metric-value">99.9%</span>
+      </div>
+    </div>
+
+    <!-- Network Activity Panel -->
+    <div class="panel net-activity" id="netLog">
+      <div class="panel-title">NETWORK_ACTIVITY // LIVE_FEED</div>
+    </div>
+
+    <!-- Profile Panel -->
+    <div class="panel profile-panel">
+      <div class="avatar-container">
+        <div class="avatar-glow"></div>
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring"></div>
+        <div class="avatar-img"></div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name glitch" data-text="SURJIT SINGH">SURJIT SINGH</div>
+        <div class="profile-tagline">FULL-STACK DEVELOPER // OPEN SOURCE // PROBLEM SOLVER</div>
+        <div class="social-links">
+          <a href="https://github.com/surjit12334-hue" target="_blank" class="social-btn github">◆ GITHUB</a>
+          <a href="https://www.linkedin.com/in/surjeet-singh-4b0b5a31a" target="_blank" class="social-btn linkedin">◆ LINKEDIN</a>
+          <a href="mailto:surjit123408@gmail.com" class="social-btn email">◆ EMAIL</a>
+          <a href="https://www.instagram.com/surjit12334/" target="_blank" class="social-btn instagram">◆ INSTAGRAM</a>
+        </div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value" id="statRepos">0</div>
+            <div class="stat-label">REPOS</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="statStars">0</div>
+            <div class="stat-label">STARS</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="statFollowers">0</div>
+            <div class="stat-label">FOLLOWERS</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="statCommits">0</div>
+            <div class="stat-label">COMMITS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>ROOT@CYBER_TERMINAL:~# <span style="color:#00ff88">whoami</span> // SURJIT_SINGH</div>
+    <div class="footer-right">LAST_SYNC: <span id="time">00:00:00</span> // VERSION: 3.7.1-STABLE</div>
+  </div>
+
+</div>
+
+<script>
+  // Dynamic metrics
+  const cpuEl = document.getElementById('cpu');
+  const memEl = document.getElementById('mem');
+  const netEl = document.getElementById('net');
+  const diskEl = document.getElementById('disk');
+  const timeEl = document.getElementById('time');
+
+  setInterval(() => {
+    cpuEl.textContent = Math.floor(Math.random() * 30 + 20) + '%';
+    memEl.textContent = Math.floor(Math.random() * 20 + 40) + '%';
+    netEl.textContent = Math.floor(Math.random() * 40 + 30) + '%';
+    diskEl.textContent = Math.floor(Math.random() * 25 + 10) + '%';
+    
+    const now = new Date();
+    timeEl.textContent = now.toLocaleTimeString();
+  }, 1000);
+
+  // Network log entries
+  const logTypes = [
+    { type: 'success', msg: 'Connection established to github.com' },
+    { type: 'info', msg: 'Pulling latest commits...' },
+    { type: 'success', msg: 'Deployed to production' },
+    { type: 'info', msg: 'Running tests...' },
+    { type: 'success', msg: 'All tests passed' },
+    { type: 'warn', msg: 'High memory usage detected' },
+    { type: 'info', msg: 'Garbage collection triggered' },
+    { type: 'success', msg: 'Cache cleared' },
+    { type: 'info', msg: 'WebSocket connected' },
+    { type: 'success', msg: 'API response: 200 OK' },
+    { type: 'info', msg: 'Building docker image...' },
+    { type: 'success', msg: 'Image pushed to registry' },
+  ];
+
+  const netLog = document.getElementById('netLog');
+  
+  function addLogEntry() {
+    const entry = logTypes[Math.floor(Math.random() * logTypes.length)];
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString();
+    
+    const div = document.createElement('div');
+    div.className = 'log-entry';
+    div.style.animationDelay = '0s';
+    div.innerHTML = `
+      <span class="log-time">[${timeStr}]</span>
+      <span class="log-type ${entry.type}">[${entry.type.toUpperCase()}]</span>
+      <span class="log-msg">${entry.msg}</span>
+    `;
+    
+    netLog.insertBefore(div, netLog.firstChild);
+    
+    // Keep only last 15 entries
+    while (netLog.children.length > 16) {
+      netLog.removeChild(netLog.lastChild);
+    }
+  }
+
+  // Add initial logs
+  for (let i = 0; i < 8; i++) {
+    setTimeout(addLogEntry, i * 200);
+  }
+
+  // Add new log every 2-4 seconds
+  setInterval(addLogEntry, Math.random() * 2000 + 2000);
+
+  // Animate stat counters
+  const statRepos = document.getElementById('statRepos');
+  const statStars = document.getElementById('statStars');
+  const statFollowers = document.getElementById('statFollowers');
+  const statCommits = document.getElementById('statCommits');
+
+  function animateCounter(el, target, duration = 2000) {
+    let current = 0;
+    const increment = target / (duration / 16);
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(current);
+    }, 16);
+  }
+
+  // Trigger counter animations
+  setTimeout(() => {
+    animateCounter(statRepos, 12);
+    animateCounter(statStars, 47);
+    animateCounter(statFollowers, 23);
+    animateCounter(statCommits, 1247);
+  }, 1000);
+
+  // Random glitch on name
+  const glitchName = document.querySelector('.glitch');
+  setInterval(() => {
+    if (Math.random() < 0.1) {
+      glitchName.style.animation = 'none';
+      setTimeout(() => {
+        glitchName.style.animation = '';
+      }, 100);
+    }
+  }, 3000);
+</script>
+
+</body>
+</html><h1 align="center">Hey there 👋 I'm Surjit</h1>
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=surjit12334-hue&label=Profile%20Views&color=0e75b6&style=flat" alt="surjit12334-hue" />
