@@ -16,8 +16,8 @@
 ---
 
 ### 🧑‍💻 About Me
-
-- 🔭 I’m currently working on ** exciting projects**
+- 🎓 B.Tech Computer Science & Engineering (2025–2029)
+- 🏫SCRIET,CCSU
 - 🌱 I’m currently learning **new technologies**
 - 👯 I’m looking to collaborate on **open source projects**
 - 🤔 I’m looking for help with **anything interesting**
