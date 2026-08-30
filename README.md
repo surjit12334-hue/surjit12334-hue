@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/main/tux-linux-tux.gif" alt="Tux Linux" width="400" />
+  <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/main/tux-linux-tux.gif" alt="Tux Linux" width="220" />
 </p>
 
 <p align="center">
