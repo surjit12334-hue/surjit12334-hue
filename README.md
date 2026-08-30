@@ -62,6 +62,11 @@
     <td><img src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="VS Code" /></td>
     <td><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" /></td>
   </tr>
+  <tr align="center">
+    <td colspan="2"></td>
+    <td><img src="https://img.shields.io/badge/Kali_Linux-557C94?style=for-the-badge&logo=kalilinux&logoColor=white" alt="Kali Linux" /></td>
+    <td></td>
+  </tr>
 </table>
 
 ---
@@ -98,7 +103,11 @@
 ### 🐍 Snake Eats My Contributions
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake-dark.svg" alt="Snake Animation" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake.svg" />
+    <img alt="Snake Animation" src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake.svg" />
+  </picture>
 </p>
 
 ---
