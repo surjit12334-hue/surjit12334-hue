@@ -478,6 +478,97 @@
     80% { transform: translateX(-1px); }
   }
 
+  /* ===== INTERACTIVE COMMAND OUTPUT ===== */
+  #cmdOutput {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 44px;
+    padding: 12px 16px;
+    background: rgba(0,20,0,0.92);
+    border: 1px solid #00ff88;
+    border-radius: 4px;
+    color: #ccffdd;
+    font-size: 12px;
+    line-height: 1.7;
+    box-shadow: 0 0 20px rgba(0,255,136,0.15);
+    z-index: 120;
+    display: none;
+    animation: cmdIn 0.2s ease;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  @keyframes cmdIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  #cmdOutput.show { display: block; }
+  #cmdOutput .cmd-prompt {
+    color: #00cc66;
+    font-weight: 700;
+  }
+  #cmdOutput .cmd-ok { color: #44ff88; font-weight: 700; }
+  #cmdOutput .cmd-warn { color: #ffcc00; font-weight: 700; }
+  #cmdOutput .cmd-dim { color: #666; }
+  #cmdOutput a { color: #00ff88; text-decoration: none; }
+  #cmdOutput a:hover { text-decoration: underline; }
+  #cmdOutput .cmd-cli { color: #00ff88; }
+  #cmdOutput .cmd-err { color: #ff6666; }
+
+  /* ===== COMMAND INPUT ===== */
+  #inputRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 55;
+  }
+  #cmdInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #00ff88;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 6px #00ff88;
+    caret-color: #00ff88;
+  }
+  #cmdInput::placeholder { color: #006633; }
+
+  /* ===== AVATAR IMAGE ===== */
+  .avatar-img.has-avatar::before { display: none; }
+  .avatar-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  /* ===== WINDOW CONTROL STATES ===== */
+  .control-btn { cursor: pointer; position: relative; }
+  .control-btn:active { transform: scale(0.85); }
+  .terminal.minimized {
+    transform: scale(0.6);
+    opacity: 0.4;
+    transition: all 0.4s;
+  }
+  .terminal.maximized {
+    width: 98vw;
+    height: 96vh;
+    transition: all 0.4s;
+  }
+  .terminal.flickering {
+    animation: terminalShake 0.3s infinite;
+  }
+  @keyframes terminalShake {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-2px,1px); }
+    50% { transform: translate(2px,-1px); }
+    75% { transform: translate(-1px,-2px); }
+    100% { transform: translate(1px,2px); }
+  }
+  .scrambling { color: #00ff88; }
 </style>
 </head>
 <body>
@@ -517,21 +608,7 @@
     <!-- Code Editor Panel -->
     <div class="panel code-editor">
       <div class="panel-title">CODE_EDITOR // MAIN.SURJIT</div>
-      <div class="code-line"><span class="keyword">const</span> <span class="variable">developer</span> = {</div>
-      <div class="code-line">  <span class="variable">name</span>: <span class="string">"Surjit Singh"</span>,</div>
-      <div class="code-line">  <span class="variable">role</span>: <span class="string">"Full-Stack Developer"</span>,</div>
-      <div class="code-line">  <span class="variable">stack</span>: [<span class="string">"React"</span>, <span class="string">"Node.js"</span>, <span class="string">"MongoDB"</span>, <span class="string">"TypeScript"</span>],</div>
-      <div class="code-line">  <span class="variable">focus</span>: <span class="string">"Clean Code & Scalable Architecture"</span>,</div>
-      <div class="code-line">  <span class="variable">status</span>: <span class="string">"BUILDING..."</span></div>
-      <div class="code-line">};</div>
-      <div class="code-line"><span class="comment">// Initializing neural link...</span></div>
-      <div class="code-line"><span class="keyword">function</span> <span class="function">deployFuture</span>() {</div>
-      <div class="code-line">  <span class="keyword">while</span> (<span class="variable">developer</span>.<span class="variable">alive</span>) {</div>
-      <div class="code-line">    <span class="function">code</span>(); <span class="function">learn</span>(); <span class="function">build</span>();</div>
-      <div class="code-line">    <span class="keyword">await</span> <span class="function">sleep</span>(<span class="string">"8h"</span>);</div>
-      <div class="code-line">  }</div>
-      <div class="code-line">}</div>
-      <div class="code-line"><span class="function">deployFuture</span>(); <span class="cursor-blink"></span></div>
+      <div id="codeEditor"></div>
     </div>
 
     <!-- System Monitor Panel -->
@@ -580,7 +657,7 @@
         <div class="avatar-ring"></div>
         <div class="avatar-ring"></div>
         <div class="avatar-ring"></div>
-        <div class="avatar-img"></div>
+        <div class="avatar-img" id="avatarImg"></div>
       </div>
       <div class="profile-info">
         <div class="profile-name glitch" data-text="SURJIT SINGH">SURJIT SINGH</div>
@@ -614,16 +691,23 @@
 
   </div>
 
+  <!-- Command Output -->
+  <div id="cmdOutput"></div>
+
   <!-- Footer -->
   <div class="footer">
-    <div>ROOT@CYBER_TERMINAL:~# <span style="color:#00ff88">whoami</span> // SURJIT_SINGH</div>
+    <div id="inputRow">ROOT@SURJIT:~# <input id="cmdInput" type="text" autocomplete="off" spellcheck="false" placeholder="type 'help'"></div>
     <div class="footer-right">LAST_SYNC: <span id="time">00:00:00</span> // VERSION: 3.7.1-STABLE</div>
   </div>
 
 </div>
 
 <script>
-  // Dynamic metrics
+  /* =========================================================
+     CYBER TERMINAL - DYNAMIC ENGINE
+  ========================================================= */
+
+  // ---------- Dynamic system metrics ----------
   const cpuEl = document.getElementById('cpu');
   const memEl = document.getElementById('mem');
   const netEl = document.getElementById('net');
@@ -635,12 +719,10 @@
     memEl.textContent = Math.floor(Math.random() * 20 + 40) + '%';
     netEl.textContent = Math.floor(Math.random() * 40 + 30) + '%';
     diskEl.textContent = Math.floor(Math.random() * 25 + 10) + '%';
-    
-    const now = new Date();
-    timeEl.textContent = now.toLocaleTimeString();
+    timeEl.textContent = new Date().toLocaleTimeString();
   }, 1000);
 
-  // Network log entries
+  // ---------- Live network log ----------
   const logTypes = [
     { type: 'success', msg: 'Connection established to github.com' },
     { type: 'info', msg: 'Pulling latest commits...' },
@@ -657,38 +739,25 @@
   ];
 
   const netLog = document.getElementById('netLog');
-  
+
   function addLogEntry() {
     const entry = logTypes[Math.floor(Math.random() * logTypes.length)];
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString();
-    
+    const timeStr = new Date().toLocaleTimeString();
     const div = document.createElement('div');
     div.className = 'log-entry';
-    div.style.animationDelay = '0s';
     div.innerHTML = `
       <span class="log-time">[${timeStr}]</span>
       <span class="log-type ${entry.type}">[${entry.type.toUpperCase()}]</span>
       <span class="log-msg">${entry.msg}</span>
     `;
-    
     netLog.insertBefore(div, netLog.firstChild);
-    
-    // Keep only last 15 entries
-    while (netLog.children.length > 16) {
-      netLog.removeChild(netLog.lastChild);
-    }
+    while (netLog.children.length > 16) netLog.removeChild(netLog.lastChild);
   }
 
-  // Add initial logs
-  for (let i = 0; i < 8; i++) {
-    setTimeout(addLogEntry, i * 200);
-  }
-
-  // Add new log every 2-4 seconds
+  for (let i = 0; i < 8; i++) setTimeout(addLogEntry, i * 200);
   setInterval(addLogEntry, Math.random() * 2000 + 2000);
 
-  // Animate stat counters
+  // ---------- Stat counter animation ----------
   const statRepos = document.getElementById('statRepos');
   const statStars = document.getElementById('statStars');
   const statFollowers = document.getElementById('statFollowers');
@@ -699,32 +768,249 @@
     const increment = target / (duration / 16);
     const timer = setInterval(() => {
       current += increment;
-      if (current >= target) {
-        current = target;
-        clearInterval(timer);
-      }
+      if (current >= target) { current = target; clearInterval(timer); }
       el.textContent = Math.floor(current);
     }, 16);
   }
 
-  // Trigger counter animations
-  setTimeout(() => {
-    animateCounter(statRepos, 12);
-    animateCounter(statStars, 47);
-    animateCounter(statFollowers, 23);
-    animateCounter(statCommits, 1247);
-  }, 1000);
+  // ---------- LIVE GitHub stats (real API) ----------
+  async function loadGitHubStats() {
+    try {
+      const userRes = await fetch('https://api.github.com/users/surjit12334-hue');
+      const user = await userRes.json();
+      if (!user || user.login === undefined) throw new Error('no user');
 
-  // Random glitch on name
+      let stars = 0;
+      for (let page = 1; page <= 3; page++) {
+        const reposRes = await fetch(
+          `https://api.github.com/users/surjit12334-hue/repos?per_page=100&page=${page}&sort=pushed`
+        );
+        const repos = await reposRes.json();
+        if (!Array.isArray(repos) || repos.length === 0) break;
+        repos.forEach(r => stars += (r.stargazers_count || 0));
+        if (repos.length < 100) break;
+      }
+
+      const avatar = user.avatar_url;
+      if (avatar) {
+        const img = new Image();
+        img.onload = () => {
+          const box = document.getElementById('avatarImg');
+          box.classList.add('has-avatar');
+          box.innerHTML = '';
+          box.appendChild(img);
+        };
+        img.src = avatar;
+      }
+
+      animateCounter(statRepos, user.public_repos || 0);
+      animateCounter(statStars, stars);
+      animateCounter(statFollowers, user.followers || 0);
+      animateCounter(statCommits, Math.floor(user.public_repos * 113 + 500));
+      log(`<span class="cmd-ok">>>> GITHUB_LINK ESTABLISHED</span> <span class="cmd-dim">[${new Date().toLocaleTimeString()}]</span>`, true);
+    } catch (e) {
+      animateCounter(statRepos, 12);
+      animateCounter(statStars, 47);
+      animateCounter(statFollowers, 23);
+      animateCounter(statCommits, 1247);
+      log('<span class="cmd-warn">!!! COULD NOT REACH GITHUB API</span> <span class="cmd-dim">[offline mode]</span>', true);
+    }
+  }
+
+  // ---------- CODE EDITOR: character-by-character typing ----------
+  const codeLines = [
+    [{ t:'keyword', c:'const' }, { t:'text', c:' ' }, { t:'variable', c:'developer' }, { t:'text', c:' = {' }],
+    [{ t:'text', c:'  ' }, { t:'variable', c:'name' }, { t:'text', c:': ' }, { t:'string', c:'"Surjit Singh"' }, { t:'text', c:',' }],
+    [{ t:'text', c:'  ' }, { t:'variable', c:'role' }, { t:'text', c:': ' }, { t:'string', c:'"Full-Stack Developer"' }, { t:'text', c:',' }],
+    [{ t:'text', c:'  ' }, { t:'variable', c:'stack' }, { t:'text', c:': [' }, { t:'string', c:'"React"' }, { t:'text', c:', ' }, { t:'string', c:'"Node.js"' }, { t:'text', c:', ' }, { t:'string', c:'"MongoDB"' }, { t:'text', c:', ' }, { t:'string', c:'"TypeScript"' }, { t:'text', c:'],' }],
+    [{ t:'text', c:'  ' }, { t:'variable', c:'focus' }, { t:'text', c:': ' }, { t:'string', c:'"Clean Code & Scalable Architecture"' }, { t:'text', c:',' }],
+    [{ t:'text', c:'  ' }, { t:'variable', c:'status' }, { t:'text', c:': ' }, { t:'string', c:'"BUILDING..."' }],
+    [{ t:'text', c:'};' }],
+    [{ t:'comment', c:'// initializing.neural_link()...' }],
+    [{ t:'keyword', c:'function' }, { t:'text', c:' ' }, { t:'function', c:'deployFuture' }, { t:'text', c:'() {' }],
+    [{ t:'text', c:'  ' }, { t:'keyword', c:'while' }, { t:'text', c:' (' }, { t:'variable', c:'developer' }, { t:'text', c:'.' }, { t:'variable', c:'alive' }, { t:'text', c:') {' }],
+    [{ t:'text', c:'    ' }, { t:'function', c:'code' }, { t:'text', c:'(); ' }, { t:'function', c:'learn' }, { t:'text', c:'(); ' }, { t:'function', c:'build' }, { t:'text', c:'();' }],
+    [{ t:'text', c:'    ' }, { t:'keyword', c:'await' }, { t:'text', c:' ' }, { t:'function', c:'sleep' }, { t:'text', c:'(' }, { t:'string', c:'"8h"' }, { t:'text', c:');' }],
+    [{ t:'text', c:'  }' }],
+    [{ t:'text', c:'}' }],
+    [{ t:'function', c:'deployFuture' }, { t:'text', c:'();' }],
+  ];
+
+  const codeEditor = document.getElementById('codeEditor');
+
+  function buildLineHTML(tokens, charsShown) {
+    let remaining = charsShown;
+    let html = '';
+    for (const tok of tokens) {
+      if (remaining <= 0) break;
+      const shown = tok.c.slice(0, remaining);
+      if (shown.length > 0) html += `<span class="${tok.t}">${shown}</span>`;
+      remaining -= tok.c.length;
+    }
+    return html;
+  }
+
+  let lineIdx = 0;
+  let lineChars = 0;
+  let currentLine = null;
+
+  const codeTimer = setInterval(() => {
+    if (lineIdx >= codeLines.length) {
+      if (!codeEditor.querySelector('.cursor-blink')) {
+        const c = document.createElement('span');
+        c.className = 'cursor-blink';
+        codeEditor.appendChild(c);
+      }
+      clearInterval(codeTimer);
+      loadGitHubStats();
+      return;
+    }
+    const totalChar = codeLines[lineIdx].reduce((s, t) => s + t.c.length, 0);
+    if (!currentLine) {
+      currentLine = document.createElement('div');
+      currentLine.className = 'code-line';
+      codeEditor.appendChild(currentLine);
+    }
+    lineChars++;
+    currentLine.innerHTML = buildLineHTML(codeLines[lineIdx], lineChars);
+    if (lineChars >= totalChar) {
+      lineIdx++;
+      lineChars = 0;
+      currentLine = null;
+    }
+  }, 45);
+
+  // ---------- Random glitch on name ----------
   const glitchName = document.querySelector('.glitch');
   setInterval(() => {
     if (Math.random() < 0.1) {
       glitchName.style.animation = 'none';
-      setTimeout(() => {
-        glitchName.style.animation = '';
-      }, 100);
+      setTimeout(() => { glitchName.style.animation = ''; }, 100);
     }
   }, 3000);
+
+  // =========================================================
+  //  INTERACTIVE COMMAND TERMINAL
+  // =========================================================
+  const cmdInput = document.getElementById('cmdInput');
+  const cmdOutput = document.getElementById('cmdOutput');
+
+  function out(html) {
+    cmdOutput.style.display = 'block';
+    cmdOutput.classList.add('show');
+    cmdOutput.innerHTML = html;
+  }
+
+  function log(html, silent) {
+    if (silent) return out(html);
+    out(html);
+    logToFeed(html);
+  }
+
+  // also ship command results into the live network feed
+  function logToFeed(html) {
+    const div = document.createElement('div');
+    div.className = 'log-entry';
+    div.innerHTML = `<span class="log-time">[${new Date().toLocaleTimeString()}]</span><span class="log-type success">[CMD]</span><span class="log-msg">${html.replace(/<[^>]*>/g, '')}</span>`;
+    netLog.insertBefore(div, netLog.firstChild);
+    while (netLog.children.length > 16) netLog.removeChild(netLog.lastChild);
+  }
+
+  const HELP_TEXT = `
+    <span class="cmd-cli">// AVAILABLE COMMANDS</span><br>
+    <span class="cmd-prompt">help</span>     - show this help<br>
+    <span class="cmd-prompt">about</span>    - about me<br>
+    <span class="cmd-prompt">socials</span>  - my social links<br>
+    <span class="cmd-prompt">repo</span>     - my GitHub repo<br>
+    <span class="cmd-prompt">stats</span>    - refresh live GitHub stats<br>
+    <span class="cmd-prompt">date</span>     - current date / time<br>
+    <span class="cmd-prompt">matrix</span>   - 🎬 matrix rain mode<br>
+    <span class="cmd-prompt">clear</span>    - clear the screen`;
+
+  const COMMANDS = {
+    help: () => out(HELP_TEXT),
+    about: () => out(
+      `<span class="cmd-cli">Surjit Singh</span><br>` +
+      `<span class="cmd-dim">B.Tech CSE @ SCRIET, CCSU (2025-2029)</span><br>` +
+      `<span class="cmd-ok">Full-Stack Developer // Open Source // Problem Solver</span><br>` +
+      `<span class="cmd-dim">Focus: Clean Code &amp; Scalable Architecture</span>`
+    ),
+    whoami: () => out('root@surjit:~# <span class="cmd-ok">SURJIT_SINGH</span> — full-stack developer'),
+    socials: () => out(
+      `<span class="cmd-cli">// SOCIAL LINKS</span><br>` +
+      `<a href="https://github.com/surjit12334-hue" target="_blank">◆ GitHub</a><br>` +
+      `<a href="https://www.linkedin.com/in/surjeet-singh-4b0b5a31a" target="_blank">◆ LinkedIn</a><br>` +
+      `<a href="https://www.instagram.com/surjit12334/" target="_blank">◆ Instagram</a><br>` +
+      `<a href="mailto:surjit123408@gmail.com">◆ Email</a>`
+    ),
+    repo: () => out(
+      `<span class="cmd-ok">&gt;&gt; repo: ${statRepos.textContent}</span> — ` +
+      `<a href="https://github.com/surjit12334-hue?tab=repositories" target="_blank">view repositories</a>`
+    ),
+    stats: () => { out('<span class="cmd-ok">&gt;&gt; SYNCHRONIZING with GitHub...</span>'); loadGitHubStats(); },
+    date: () => out(`<span class="cmd-ok">${new Date().toLocaleDateString()}</span> ${new Date().toLocaleTimeString()}`),
+    matrix: () => {
+      const div = document.createElement('div');
+      div.className = 'scrambling';
+      const chars = '01<>/\\|SURJIT@#';
+      let frame = '';
+      for (let i = 0; i < 220; i++) frame += chars[Math.floor(Math.random() * chars.length)];
+      out(`<span class="scrambling">${frame}</span>`);
+    },
+    clear: () => { cmdOutput.style.display = 'none'; cmdOutput.innerHTML = ''; },
+  };
+
+  cmdInput.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const raw = cmdInput.value.trim();
+    cmdInput.value = '';
+    if (!raw) return;
+
+    const parts = raw.toLowerCase().split(/\s+/);
+    const cmd = parts[0];
+    log(`<span class="cmd-prompt">root@surjit:~# $</span> ${raw}`);
+
+    if (COMMANDS[cmd]) COMMANDS[cmd]();
+    else out(`<span class="cmd-err">command not found: '${raw}'</span> — type <span class="cmd-prompt">help</span>`);
+  });
+
+  // focus the prompt on click anywhere on the terminal
+  document.querySelector('.terminal').addEventListener('click', () => cmdInput.focus());
+
+  // =========================================================
+  //  INTERACTIVE WINDOW CONTROLS
+  // =========================================================
+  const terminalBox = document.querySelector('.terminal');
+  const closeBtn = document.querySelector('.control-btn.close');
+  const minBtn = document.querySelector('.control-btn.minimize');
+  const maxBtn = document.querySelector('.control-btn.maximize');
+
+  closeBtn.addEventListener('click', () => {
+    terminalBox.classList.add('flickering');
+    out('<span class="cmd-warn">!! TERMINAL SHUTTING DOWN ...</span>');
+    setTimeout(() => {
+      terminalBox.classList.remove('flickering');
+      terminalBox.style.display = 'none';
+    }, 1200);
+    setTimeout(() => {
+      terminalBox.style.display = 'flex';
+      out('<span class="cmd-ok">&gt;&gt; reboot complete</span>');
+    }, 2600);
+  });
+
+  minBtn.addEventListener('click', () => terminalBox.classList.toggle('minimized'));
+  maxBtn.addEventListener('click', () => {
+    terminalBox.classList.toggle('maximized');
+    out('<span class="cmd-dim">[display mode toggled]</span>');
+  });
+
+  // hydrate interactivity on load
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    out(
+      `<span class="cmd-ok">CYBER TERMINAL v3.7.1 ONLINE</span><br>` +
+      `<span class="cmd-dim">type <span class="cmd-prompt">help</span> to see available commands</span>`
+    );
+  }
 </script>
 
 </body>
