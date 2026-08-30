@@ -79,25 +79,6 @@
 
 ---
 
-### 📈 Live Coding Activity
-
-<p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=surjit12334-hue&theme=nord_dark" width="800" alt="Profile Details" />
-</p>
-<br>
-
-<p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=surjit12334-hue&theme=nord_dark" width="390" alt="Repos per Language" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=surjit12334-hue&theme=nord_dark" width="390" alt="Most Commit Language" />
-</p>
-
-<p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=surjit12334-hue&theme=nord_dark" width="390" alt="Stats" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=surjit12334-hue&theme=nord_dark&utcOffset=5.5" width="390" alt="Productive Time" />
-</p>
-
----
-
 ### 🏆 GitHub Trophies
 
 <p align="center">
@@ -130,6 +111,9 @@
   </a>
   <a href="https://www.linkedin.com/in/surjeet-singh-4b0b5a31a">
     <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="https://discord.com/users/surjit12334">
+    <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
   </a>
   <a href="mailto:surjit123408@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" />
