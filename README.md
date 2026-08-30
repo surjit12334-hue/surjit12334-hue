@@ -1,16 +1,6 @@
  <h1 align="center">Hey there 👋 I'm Surjit</h1>
 
 <p align="center">
-  <a href="https://surjit12334-hue.github.io/surjit12334-hue/cyber-terminal.html">
-    <img src="cyber-terminal.svg" alt="Cyber Terminal Preview" width="700" />
-  </a>
-</p>
-
-<p align="center">
-  🔌 <strong>◇ CYBER TERMINAL ◇</strong> — a retro CRT-themed terminal. <a href="https://surjit12334-hue.github.io/surjit12334-hue/cyber-terminal.html">Open live</a> or run <code>cyber-terminal.html</code> locally
-</p>
-
-<p align="center">
   <img src="https://komarev.com/ghpvc/?username=surjit12334-hue&label=Profile%20Views&color=0e75b6&style=flat" alt="surjit12334-hue" />
 </p>
 
