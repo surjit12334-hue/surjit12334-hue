@@ -1,5 +1,3 @@
-![Uploading tux-linux-tux.gif…]()
-
 <h1 align="center">Hey there 👋 I'm Surjit</h1>
 
 <p align="center">
