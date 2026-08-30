@@ -82,14 +82,18 @@
 ### 📈 Live Coding Activity
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=surjit12334-hue&theme=tokyonight" alt="Profile Details" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=surjit12334-hue&theme=nord_dark" width="800" alt="Profile Details" />
+</p>
+<br>
+
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=surjit12334-hue&theme=nord_dark" width="390" alt="Repos per Language" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=surjit12334-hue&theme=nord_dark" width="390" alt="Most Commit Language" />
 </p>
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=surjit12334-hue&theme=tokyonight" alt="Repos per Language" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=surjit12334-hue&theme=tokyonight" alt="Most Commit Language" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=surjit12334-hue&theme=tokyonight" alt="Stats" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=surjit12334-hue&theme=tokyonight&utcOffset=5.5" alt="Productive Time" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=surjit12334-hue&theme=nord_dark" width="390" alt="Stats" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=surjit12334-hue&theme=nord_dark&utcOffset=5.5" width="390" alt="Productive Time" />
 </p>
 
 ---
@@ -115,36 +119,6 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake-dark.svg" alt="Snake Animation" />
 </p>
-
----
-
-### 💬 Quote & Joke
-
-<p align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight" alt="Daily Quote" />
-</p>
-
-<p align="center">
-  <img src="https://readme-jokes.vercel.app/api?theme=tokyonight" alt="Random Dev Joke" />
-</p>
-
----
-
-### 🗂️ Projects Showcase
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=surjit12334-hue&repo=surjit12334-hue&theme=tokyonight&hide_border=true" alt="Profile Repo" />
-</p>
-
-<!--
-👉 ADD YOUR PROJECTS BELOW — duplicate the pin card with your real repo names:
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=surjit12334-hue&repo=YOUR_REPO&theme=tokyonight&hide_border=true" />
--->
-
----
-
-### ✍️ Blogs & Writing
-- 🚧 Blog posts coming soon — stay tuned!
 
 ---
 
