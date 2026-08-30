@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#001a00"/>
+      <stop offset="0.5" stop-color="#003300"/>
+      <stop offset="1" stop-color="#001a00"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00ff88"/>
+      <stop offset="1" stop-color="#00cc66"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="892" height="552" rx="8" fill="#0a0f0a" stroke="#00ff88" stroke-width="2"/>
+
+  <!-- header bar -->
+  <rect x="4" y="4" width="892" height="40" fill="url(#hdr)" stroke="#00ff88" stroke-width="2"/>
+  <circle cx="28" cy="24" r="6" fill="#ff4444"/>
+  <circle cx="48" cy="24" r="6" fill="#ffcc00"/>
+  <circle cx="68" cy="24" r="6" fill="#44ff44"/>
+  <text x="340" y="28" fill="#00ff88" font-family="monospace" font-size="13" text-anchor="middle">CYBER_TERMINAL v3.7.1 // SURJIT_SINGH</text>
+
+  <!-- code editor panel -->
+  <rect x="20" y="56" width="560" height="160" rx="4" fill="#003000" opacity="0.6" stroke="#003300"/>
+  <text x="36" y="76" fill="#00ff88" font-family="monospace" font-size="11">CODE_EDITOR // MAIN.SURJIT</text>
+  <text x="36" y="98" fill="#00ff88" font-family="monospace" font-size="13">const developer = {</text>
+  <text x="36" y="118" fill="#ff8800" font-family="monospace" font-size="13">  name: <tspan fill="#ffff00">"Surjit Singh"</tspan>,</text>
+  <text x="36" y="138" fill="#ff8800" font-family="monospace" font-size="13">  role: <tspan fill="#ffff00">"Full-Stack Developer"</tspan>,</text>
+  <text x="36" y="158" fill="#ff8800" font-family="monospace" font-size="13">  stack: [<tspan fill="#ffff00">"React"</tspan>, <tspan fill="#ffff00">"Node.js"</tspan>, <tspan fill="#ffff00">"MongoDB"</tspan>],</text>
+  <text x="36" y="178" fill="#ff8800" font-family="monospace" font-size="13">  status: <tspan fill="#ffff00">"BUILDING..."</tspan></text>
+  <text x="36" y="198" fill="#00ff88" font-family="monospace" font-size="13">};</text>
+
+  <!-- sys monitor panel -->
+  <rect x="596" y="56" width="280" height="160" rx="4" fill="#003000" opacity="0.6" stroke="#003300"/>
+  <text x="612" y="76" fill="#00ff88" font-family="monospace" font-size="11">SYSTEM_MONITOR</text>
+  <text x="612" y="98" fill="#00cc66" font-family="monospace" font-size="11">CPU_USAGE <tspan fill="#00ff88">64%</tspan></text>
+  <rect x="612" y="104" width="248" height="6" rx="3" fill="#001100"/>
+  <rect x="612" y="104" width="160" height="6" rx="3" fill="url(#bar)"/>
+  <text x="612" y="128" fill="#00cc66" font-family="monospace" font-size="11">MEMORY <tspan fill="#00ff88">58%</tspan></text>
+  <rect x="612" y="134" width="248" height="6" rx="3" fill="#001100"/>
+  <rect x="612" y="134" width="145" height="6" rx="3" fill="url(#bar)"/>
+  <text x="612" y="158" fill="#00cc66" font-family="monospace" font-size="11">NETWORK <tspan fill="#00ff88">83%</tspan></text>
+  <rect x="612" y="164" width="248" height="6" rx="3" fill="#001100"/>
+  <rect x="612" y="164" width="206" height="6" rx="3" fill="url(#bar)"/>
+  <text x="612" y="188" fill="#00cc66" font-family="monospace" font-size="11">UPTIME <tspan fill="#00ff88">99.9%</tspan></text>
+
+  <!-- net activity panel -->
+  <rect x="20" y="228" width="280" height="160" rx="4" fill="#003000" opacity="0.6" stroke="#003300"/>
+  <text x="36" y="248" fill="#00ff88" font-family="monospace" font-size="11">NETWORK_ACTIVITY // LIVE_FEED</text>
+  <text x="36" y="272" fill="#666" font-family="monospace" font-size="10">[12:04:02] <tspan fill="#44ff88">[SUCCESS]</tspan> <tspan fill="#aaa">Deployed to production</tspan></text>
+  <text x="36" y="290" fill="#666" font-family="monospace" font-size="10">[12:04:05] <tspan fill="#00ff88">[INFO]</tspan> <tspan fill="#aaa">Pulling latest commits...</tspan></text>
+  <text x="36" y="308" fill="#666" font-family="monospace" font-size="10">[12:04:08] <tspan fill="#44ff88">[SUCCESS]</tspan> <tspan fill="#aaa">All tests passed</tspan></text>
+  <text x="36" y="326" fill="#666" font-family="monospace" font-size="10">[12:04:11] <tspan fill="#ffcc00">[WARN]</tspan> <tspan fill="#aaa">High memory usage</tspan></text>
+  <text x="36" y="344" fill="#666" font-family="monospace" font-size="10">[12:04:14] <tspan fill="#00ff88">[INFO]</tspan> <tspan fill="#aaa">WebSocket connected</tspan></text>
+  <text x="36" y="362" fill="#666" font-family="monospace" font-size="10">[12:04:17] <tspan fill="#44ff88">[SUCCESS]</tspan> <tspan fill="#aaa">API response: 200 OK</tspan></text>
+
+  <!-- profile panel -->
+  <rect x="316" y="228" width="560" height="240" rx="4" fill="#003000" opacity="0.6" stroke="#003300"/>
+  <circle cx="390" cy="340" r="52" fill="#003300" stroke="#00ff88" stroke-width="2"/>
+  <text x="390" y="350" fill="#00ff88" font-family="monospace" font-size="36" text-anchor="middle">◆</text>
+  <text x="470" y="300" fill="#00ff88" font-family="monospace" font-size="30" font-weight="bold">SURJIT SINGH</text>
+  <text x="472" y="322" fill="#00ccaa" font-family="monospace" font-size="11">FULL-STACK DEVELOPER // OPEN SOURCE // PROBLEM SOLVER</text>
+
+  <!-- social buttons -->
+  <rect x="472" y="340" width="90" height="24" rx="4" fill="none" stroke="#333"/>
+  <text x="490" y="356" fill="#00ff88" font-family="monospace" font-size="9">GITHUB</text>
+  <rect x="568" y="340" width="104" height="24" rx="4" fill="none" stroke="#0077b5"/>
+  <text x="586" y="356" fill="#00ff88" font-family="monospace" font-size="9">LINKEDIN</text>
+  <rect x="678" y="340" width="86" height="24" rx="4" fill="none" stroke="#d14836"/>
+  <text x="694" y="356" fill="#00ff88" font-family="monospace" font-size="9">EMAIL</text>
+  <rect x="770" y="340" width="96" height="24" rx="4" fill="none" stroke="#e4405f"/>
+  <text x="788" y="356" fill="#00ff88" font-family="monospace" font-size="9">INSTAGRAM</text>
+
+  <!-- stats -->
+  <line x1="472" y1="380" x2="856" y2="380" stroke="#002200" stroke-width="1"/>
+  <text x="505" y="416" fill="#00ff88" font-family="monospace" font-size="22" text-anchor="middle">12</text>
+  <text x="505" y="432" fill="#666" font-family="monospace" font-size="8" text-anchor="middle">REPOS</text>
+  <text x="590" y="416" fill="#00ff88" font-family="monospace" font-size="22" text-anchor="middle">47</text>
+  <text x="590" y="432" fill="#666" font-family="monospace" font-size="8" text-anchor="middle">STARS</text>
+  <text x="675" y="416" fill="#00ff88" font-family="monospace" font-size="22" text-anchor="middle">23</text>
+  <text x="675" y="432" fill="#666" font-family="monospace" font-size="8" text-anchor="middle">FOLLOWERS</text>
+  <text x="770" y="416" fill="#00ff88" font-family="monospace" font-size="22" text-anchor="middle">1247</text>
+  <text x="770" y="432" fill="#666" font-family="monospace" font-size="8" text-anchor="middle">COMMITS</text>
+
+  <!-- footer -->
+  <text x="24" y="474" fill="#006633" font-family="monospace" font-size="9">ROOT@CYBER_TERMINAL:~# whoami // SURJIT_SINGH</text>
+  <text x="880" y="474" fill="#006633" font-family="monospace" font-size="9" text-anchor="end">LAST_SYNC: 12:04:17 // VERSION: 3.7.1-STABLE</text>
+  <text x="450" y="504" fill="#00ff88" font-family="monospace" font-size="12" text-anchor="middle">CYBER TERMINAL — open cyber-terminal.html to go live</text>
+</svg>
