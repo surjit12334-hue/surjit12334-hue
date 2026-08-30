@@ -11,6 +11,10 @@
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/main/tux-linux-tux.gif" alt="Tux Linux" width="400" />
+</p>
+
+<p align="center">
   <a href="https://github.com/surjit12334-hue?tab=followers">
     <img src="https://img.shields.io/github/followers/surjit12334-hue?label=Followers&style=social" alt="Followers" />
   </a>
