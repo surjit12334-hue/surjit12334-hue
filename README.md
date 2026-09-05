@@ -104,8 +104,6 @@
 
 ---
 
-### 🐍 Snake Eats My Contributions
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake-dark.svg" />
