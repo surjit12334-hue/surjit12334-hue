@@ -9,29 +9,16 @@
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/main/tux-linux-tux.gif" alt="Tux Linux" width="220" />
+</p>
+
+<p align="center">
   <a href="https://github.com/surjit12334-hue?tab=followers">
     <img src="https://img.shields.io/github/followers/surjit12334-hue?label=Followers&style=social" alt="Followers" />
   </a>
   <a href="https://github.com/surjit12334-hue?tab=repositories&sort=stargazers">
     <img src="https://img.shields.io/github/stars/surjit12334-hue?label=Stars&style=social" alt="Stars" />
   </a>
-  <a href="https://github.com/surjit12334-hue?tab=repositories">
-    <img src="https://img.shields.io/github/repos/surjit12334-hue?label=Repos&style=social" alt="Repos" />
-  </a>
-  <a href="https://github.com/surjit12334-hue">
-    <img src="https://img.shields.io/github/last-commit/surjit12334-hue?style=social" alt="Last Commit" />
-  </a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/💻-Open%20Source-F75C7E?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="Open Source" />
-  <img src="https://img.shields.io/badge/🌱-Always%20Learning-4CAF50?style=for-the-badge&logo=codecademy&logoColor=white" alt="Learning" />
-  <img src="https://img.shields.io/badge/🔥-Status%20Active-brightgreen?style=for-the-badge" alt="Active" />
-  <img src="https://img.shields.io/badge/⏱️-Since%202024-blue?style=for-the-badge" alt="Since 2024" />
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/main/tux-linux-tux.gif" alt="Tux Linux" width="220" />
 </p>
 
 ---
