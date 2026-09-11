@@ -78,11 +78,12 @@
 ### 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats-eight-theta.vercel.app/?user=surjit12334-hue&theme=vue&hide_border=true" alt="GitHub Streak" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=vue&hide_border=true" alt="Top Languages" />
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=vue&hide_border=true" alt="Top Languages" />
 </p>
 
 ---
