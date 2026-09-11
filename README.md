@@ -6,9 +6,6 @@
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=surjit12334-hue&label=Profile%20Views&color=0e75b6&style=flat" alt="surjit12334-hue" />
-  <img src="https://img.shields.io/github/followers/surjit12334-hue?label=Followers&style=social" alt="Followers" />
-  <img src="https://img.shields.io/github/stars/surjit12334-hue?label=Total%20Stars&style=social" alt="Stars" />
-  <img src="https://img.shields.io/badge/💰-Sponsor-F75C7E?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor" />
 </p>
 
 <p align="center">
@@ -107,54 +104,12 @@
 
 ---
 
-### 🔥 GitHub Streak
-
-<p align="center">
-  <img src="https://github-readme-streak-stats-eight-theta.vercel.app/?user=surjit12334-hue&theme=vue&hide_border=true" alt="GitHub Streak" />
-</p>
-
----
-
-### 📊 WakaTime (Coming Soon)
-
-<p align="center">
-  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true&bg_color=0d1117&title_color=F75C7E&icon_color=F75C7E&text_color=c9d1d9" alt="GitHub Stats Card" />
-</p>
-
----
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake.svg" />
     <img alt="Snake Animation" src="https://raw.githubusercontent.com/surjit12334-hue/surjit12334-hue/output/github-snake.svg" />
   </picture>
-</p>
-
----
-
-### 💡 Random Dev Quote
-
-<p align="center">
-  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true&include_all_commits=true&count_private=true&bg_color=0d1117&title_color=F75C7E&icon_color=F75C7E&text_color=c9d1d9" alt="GitHub Stats Card" />
-</p>
-
----
-
-### 📌 Pinned Repositories
-
-<p align="center">
-  <a href="https://github.com/surjit12334-hue?tab=repositories">
-    <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true&bg_color=0d1117&title_color=F75C7E&icon_color=F75C7E&text_color=c9d1d9&include_all_commits=true" alt="GitHub Stats" />
-  </a>
-</p>
-
----
-
-### 🎯 GitHub Activity
-
-<p align="center">
-  <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=vue&hide_border=true&bg_color=0d1117&title_color=F75C7E&text_color=c9d1d9" alt="Top Languages" />
 </p>
 
 ---
@@ -174,27 +129,6 @@
   <a href="mailto:surjit123408@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" />
   </a>
-</p>
-
----
-
-### 💰 Support Me
-
-<p align="center">
-  <a href="https://www.buymeacoffee.com/surjit12334" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50" />
-  </a>
-  <a href="https://github.com/sponsors/surjit12334-hue" target="_blank">
-    <img src="https://img.shields.io/badge/💰-Sponsor-F75C7E?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors" />
-  </a>
-</p>
-
----
-
-### 🎯 Random Fun
-
-<p align="center">
-  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true&include_all_commits=true&count_private=true&bg_color=0d1117&title_color=F75C7E&icon_color=F75C7E&text_color=c9d1d9" alt="GitHub Stats Card" />
 </p>
 
 ---
