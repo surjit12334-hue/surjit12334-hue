@@ -94,12 +94,24 @@
 ### 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&custom_title=Surjit%27s%20GitHub%20Stats" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats-eight-theta.vercel.app/?user=surjit12334-hue&theme=tokyonight&hide_border=true&date_format=j%20M%5B%20Y%5D" alt="GitHub Streak" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&custom_title=Surjit%27s%20GitHub%20Stats" />
+    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&custom_title=Surjit%27s%20GitHub%20Stats" />
+    <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=surjit12334-hue&show_icons=true&theme=vue&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&custom_title=Surjit%27s%20GitHub%20Stats" alt="GitHub Stats" />
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats-eight-theta.vercel.app/?user=surjit12334-hue&theme=tokyonight&hide_border=true&date_format=j%20M%5B%20Y%5D" />
+    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-streak-stats-eight-theta.vercel.app/?user=surjit12334-hue&theme=vue&hide_border=true&date_format=j%20M%5B%20Y%5D" />
+    <img src="https://github-readme-streak-stats-eight-theta.vercel.app/?user=surjit12334-hue&theme=vue&hide_border=true&date_format=j%20M%5B%20Y%5D" alt="GitHub Streak" />
+  </picture>
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&size_weight=0.5&count_weight=0.5" alt="Top Languages" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&size_weight=0.5&count_weight=0.5" />
+    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=vue&hide_border=true&size_weight=0.5&count_weight=0.5" />
+    <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=surjit12334-hue&layout=compact&langs_count=8&theme=vue&hide_border=true&size_weight=0.5&count_weight=0.5" alt="Top Languages" />
+  </picture>
 </p>
 
 ---
@@ -107,7 +119,11 @@
 ### 🏆 GitHub Trophies
 
 <p align="center">
-  <img src="https://github-trophies.vercel.app/?username=surjit12334-hue&theme=darkhub&no-frame=true&no-bg=true&column=7&margin-w=15&margin-h=15" alt="Trophies" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-trophies.vercel.app/?username=surjit12334-hue&theme=darkhub&no-frame=true&no-bg=true&column=7&margin-w=15&margin-h=15" />
+    <source media="(prefers-color-scheme: light)" srcset="https://github-trophies.vercel.app/?username=surjit12334-hue&theme=flat&no-frame=true&no-bg=true&column=7&margin-w=15&margin-h=15" />
+    <img src="https://github-trophies.vercel.app/?username=surjit12334-hue&theme=flat&no-frame=true&no-bg=true&column=7&margin-w=15&margin-h=15" alt="Trophies" />
+  </picture>
 </p>
 
 ---
